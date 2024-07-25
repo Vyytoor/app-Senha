@@ -3,12 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 178,
+    height: 130,
     backgroundColor: '#1967FB',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal: 24
+    paddingHorizontal: 20
   },
   button: {
     height: 56,
@@ -25,11 +25,13 @@ export const styles = StyleSheet.create({
   },
   title: {
     color: '#FFF',
-    fontSize: 20
+    fontSize: 25,
+    fontWeight:'bold'
   },
   subtitle: {
     color: '#FFF',
-    fontSize: 13
+    fontSize: 15,
+    fontWeight:'bold'
   },
   avatar: {
     width: 56,

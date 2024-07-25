@@ -1,17 +1,27 @@
-import { useCallback, useState, useEffect } from 'react';
-import { FlatList, Text, View } from 'react-native';
-import {useAsyncStorage} from '@react-native-async-storage/async-storage';
+import React, { useCallback, useState } from 'react';
+import { FlatList, Text, View, Button, TouchableOpacity } from 'react-native';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { Card, CardProps } from '../../components/Card';
 import { HeaderHome } from '../../components/HeaderHome';
-import { useFocusEffect } from '@react-navigation/native';
-
 import { styles } from './styles';
-import { Button } from '../../components/Button';
 
-export function Home() {
+type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+  Form: undefined;
+};
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+interface HomeProps {
+  navigation: HomeScreenNavigationProp;
+}
+
+export function Home({ navigation }: HomeProps) {
   const [data, setData] = useState<CardProps[]>([]);
-
   const { getItem, setItem } = useAsyncStorage("@savepass:passwords");
 
   async function handleFetchData() {
@@ -22,60 +32,46 @@ export function Home() {
   }
 
   async function handleRemove(id: String) {
-
     const response = await getItem();
     const previousData = response ? JSON.parse(response) : [];
-    const data  = previousData .filter((item: CardProps) => item.id !== id);
+    const data = previousData.filter((item: CardProps) => item.id !== id);
     setItem(JSON.stringify(data));
     setData(data);
   }
 
-  
-  async function handleRemoveLista() {
-    const response = '';
-    const previousData = response ? JSON.parse(response) : [];
-    const data  = previousData;
-    setItem(JSON.stringify(data));
-    setData(data);
-  }
+  useFocusEffect(
+    useCallback(() => {
+      handleFetchData();
+    }, [])
+  );
 
-  useFocusEffect(useCallback(() =>{
-    handleFetchData();
-  },[]));
+  const handleLogout = async () => {
+    navigation.replace('Login');
+  };
 
   return (
     <View style={styles.container}>
       <HeaderHome />
-
       <View style={styles.listHeader}>
-        <Text style={styles.title}>
-          Suas senhas
-        </Text>
-
-        <Text style={styles.listCount}>
-          {`${data.length} ao total`}
-        </Text>
+        <Text style={styles.title}>Suas senhas</Text>
+        <Text style={styles.listCount}>{`${data.length} ao total`}</Text>
       </View>
-
       <FlatList
         data={data}
         keyExtractor={item => item.id}
         style={styles.list}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) =>
-          <Card
-            data={item}
-            onPress={() => handleRemove(item.id)}
-          />
+          <Card data={item} onPress={() => handleRemove(item.id)} />
         }
       />
+      <View style={styles.footer}>
+        {/* <Button title="Bloquear" onPress={handleLogout} /> */}
 
-      {/* <View style={styles.footer}>
-        <Button
-          title="Limpar lista"
-          onPress={() =>  handleRemoveLista()}
-        />
-      </View> */}
+        <TouchableOpacity style={styles.button} onPress={handleLogout}>
+          <Text style={styles.buttonText}>Bloquear</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

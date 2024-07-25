@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 import uuid from 'react-native-uuid';
-import {useAsyncStorage} from '@react-native-async-storage/async-storage';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { styles } from './styles';
 
@@ -10,25 +11,35 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { HeaderForm } from '../../components/HeaderForm';
 
-export function Form() {
+type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+  Form: undefined;
+};
 
+type FormScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Form'>;
+
+interface FormProps {
+  navigation: FormScreenNavigationProp;
+}
+
+export function Form({ navigation }: FormProps) {
   const [name, setName] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
-  const {setItem, getItem} = useAsyncStorage("@savepass:passwords");
+  const { setItem, getItem } = useAsyncStorage("@savepass:passwords");
 
   async function handleNew() {
     try {
       const id = uuid.v4();
-
 
       const newData = {
         id,
         name,
         user,
         password
-      }
+      };
 
       const response = await getItem();
       const previewData = response ? JSON.parse(response) : [];
@@ -38,13 +49,15 @@ export function Form() {
       await setItem(JSON.stringify(data));
       Toast.show({
         type: "success",
-        text1: "Cadastrado Com Secesso!"
-      })
+        text1: "Cadastrado Com Sucesso!",
+      });
+
+      // Navegar para a tela de Home após o cadastro
+      navigation.navigate('Home');
     } catch (error) {
       console.log(error);
     }
   }
-
 
   return (
     <KeyboardAvoidingView
@@ -53,7 +66,6 @@ export function Form() {
     >
       <View style={styles.content}>
         <ScrollView>
-
           <HeaderForm />
 
           <View style={styles.form}>
@@ -74,13 +86,12 @@ export function Form() {
           </View>
 
           <View style={styles.footer}>
-            <Button
-              title="Salvar"
-              onPress={handleNew}
-            />
+            <TouchableOpacity style={styles.button} onPress={handleNew}>
+              <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
-    </KeyboardAvoidingView >
+    </KeyboardAvoidingView>
   );
 }

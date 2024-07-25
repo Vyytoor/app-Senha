@@ -27,7 +27,7 @@ export function Card({ data, onPress }: Props) {
       <TouchableOpacity onPress={togglePasswordIsVisible}>
         <MaterialIcons
           name={passwordIsVisible ? "visibility" : "visibility-off"}
-          size={22}
+          size={30}
           color="#888D97"
         />
       </TouchableOpacity>
@@ -58,7 +58,7 @@ export function Card({ data, onPress }: Props) {
       >
         <MaterialIcons
           name="delete"
-          size={22}
+          size={30}
           color="#888D97"
         />
       </TouchableOpacity>

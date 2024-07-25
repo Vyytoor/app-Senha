@@ -18,18 +18,18 @@ export const styles = StyleSheet.create({
     padding: 22,
   },
   title: {
-    fontSize: 15,
-    lineHeight: 18,
+    fontSize: 20,
+    lineHeight: 30,
     color: '#3D434D',
     fontWeight: 'bold',
   },
   email: {
     color: '#888D97',
-    fontSize: 13,
+    fontSize: 20,
   },
   password: {
     color: '#1967FB',
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   button: {

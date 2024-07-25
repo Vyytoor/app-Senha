@@ -2,7 +2,7 @@
   "expo": {
     "name": "savepass",
     "slug": "savepass",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -31,8 +31,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "9e95f183-f091-41c5-9c3c-40f6120f4d45"
+        "projectId": "9b90b0a8-edf2-40e3-b24d-1eb20334e00e"
       }
-    }
+    },
+    "owner": "vyytoor"
   }
 }

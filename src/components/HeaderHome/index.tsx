@@ -13,14 +13,14 @@ export function HeaderHome() {
 
   return (
     <View style={styles.container}>
-      <Image
+      {/* <Image
         // source={{ uri: 'https://github.com/Vyytoor.png' }}
         style={styles.avatar}
-      />
+      /> */}
 
       <View style={styles.user}>
         <Text style={styles.title}>
-          Olá, Vitor
+          Gerenciador de Senha
         </Text>
         <Text style={styles.subtitle}>
           Sinta-se seguro aqui.
