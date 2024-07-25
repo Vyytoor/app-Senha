@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    height: 80,
+    height: 110,
     width: '100%',
     backgroundColor: '#fff',
     flexDirection: 'row',
@@ -18,18 +18,19 @@ export const styles = StyleSheet.create({
     padding: 22,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     lineHeight: 30,
     color: '#3D434D',
     fontWeight: 'bold',
   },
   email: {
     color: '#888D97',
-    fontSize: 20,
+    fontSize: 18,
+    width:'108%',
   },
   password: {
     color: '#1967FB',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   button: {

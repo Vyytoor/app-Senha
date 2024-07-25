@@ -22,15 +22,16 @@ export const styles = StyleSheet.create({
   },
   listCount: {
     color: '#888D97',
-    fontSize: 13
+    fontSize: 13,
   },
   list: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    
   },
   listContent: {
-    padding: 20,
-    paddingBottom: 150
+    padding: 12,
+    paddingBottom: 150,
   },
   footer: {
     width: '100%',
